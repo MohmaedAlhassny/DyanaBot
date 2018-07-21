@@ -243,7 +243,7 @@ client.on('message', message => {
     if (!devs.includes(message.author.id)) return;
     
 if (message.content.startsWith(prefix + 'setGame')) {
-  client.user.setGame(argresult);
+  client.user.setGame(`#help , #invite | ` + argresult);
     message.channel.sendMessage(`**${argresult} تم تغيير بلاينق البوت إلى **`)
 } else 
   if (message.content.startsWith(prefix + 'setName')) {
@@ -256,7 +256,7 @@ client.user.setAvatar(argresult);
   message.channel.sendMessage(`**${argresult}** : تم تغير صورة البوت`);
       } else     
 if (message.content.startsWith(prefix + 'setStreaming')) {
-  client.user.setGame(argresult, "https://www.twitch.tv/idk");
+  client.user.setGame(`#help , #invite | ` + argresult, "https://www.twitch.tv/idk");
     message.channel.sendMessage(`**تم تغيير تويتش البوت إلى  ${argresult}**`)
 }
 
