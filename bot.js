@@ -107,13 +107,13 @@ ${videos.map(video2 => `[**${++index} **] \`${video2.title}\``).join('\n')}`)
 		serverQueue.connection.dispatcher.end('Skipped.');
 		return undefined;
 	} else if (command === `stop`) {
-		if (!msg.member.voiceChannel) return msg.channel.send('**You're not in a Voice Channel.**');
-		if (!serverQueue) return msg.channel.send('**There's not song to stop.**');
+		if (!msg.member.voiceChannel) return msg.channel.send("**You're not in a Voice Channel.**");
+		if (!serverQueue) return msg.channel.send("**There's not song to stop.**");
 		serverQueue.songs = [];
 		serverQueue.connection.dispatcher.end('Stopped');
 		return undefined;
 	} else if (command === `vol`) {
-		if (!msg.member.voiceChannel) return msg.channel.send('**You're not in a Voice Channel.**');
+		if (!msg.member.voiceChannel) return msg.channel.send("**You're not in a Voice Channel.**");
 		if (!serverQueue) return;
 		if (!args[1]) return msg.channel.send(':notes: Volume level: `' + `${serverQueue.volume}/100` + '`');
 		serverQueue.volume = args[1];
