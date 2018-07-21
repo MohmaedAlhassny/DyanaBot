@@ -40,7 +40,7 @@ client.on('ready', () => {
 
 client.on('message', message => {
   if(message.content === prefix + 'invite') {
-    message.channel.send(`**Link :link: ** **https://discordapp.com/oauth2/authorize?client_id=${client.user.id}&permissions=8&scope=bot**`);
+    message.author.send(`**Link :link: ** **https://discordapp.com/oauth2/authorize?client_id=${client.user.id}&permissions=8&scope=bot**`);
   }
 });
 
@@ -231,7 +231,7 @@ function play(guild, song) {
 			play(guild, serverQueue.songs[0]);
 		})//by ,$ ReBeL ء , 🔕#4777 'CODES SERVER'
 		.on('error', error => console.error(error));//by ,$ ReBeL ء , 🔕#4777 'CODES SERVER'
-	dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);//by ,$ ReBeL ء , 🔕#4777 'CODES SERVER'
+	dispatcher.setVolumeLogarithmic(serverQueue.volume / 100);//by ,$ ReBeL ء , 🔕#4777 'CODES SERVER'
 
 	serverQueue.textChannel.send(`بدء تشغيل : **${song.title}**`);
 }
