@@ -33,7 +33,6 @@ if(message.content === prefix + "restart") {
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!..`);
     client.user.setStatus("idle");
-    client.user.setGame('#play, #invite');
 });
 
 
@@ -96,7 +95,7 @@ client.on('message', async msg => { // eslint-disable-line
 			        .setDescription(`**الرجآء من حضرتك إختيآر رقم المقطع** :
 ${videos.map(video2 => `[**${++index} **] \`${video2.title}\``).join('\n')}`)
 //by ,$ ReBeL ء , 🔕#4777 'CODES SERVER'
-					.setFooter("CODES")
+					.setFooter("Example: 1")
 					msg.channel.sendEmbed(embed1).then(message =>{message.delete(20000)})
 					
 					// eslint-disable-next-line max-depth
@@ -151,7 +150,7 @@ ${videos.map(video2 => `[**${++index} **] \`${video2.title}\``).join('\n')}`)
 		const embedqu = new Discord.RichEmbed()
 //by ,$ ReBeL ء , 🔕#4777 'CODES SERVER'
 .setDescription(`**Songs Queue**
-${serverQueue.songs.map(song => `**${++index} -** ${song.title}`).join('\n')}
+${serverQueue.songs.map(song => `**${++index}\\ -** ${song.title}`).join('\n')}
 **الان يتم تشغيل** ${serverQueue.songs[0].title}`)
 		return msg.channel.sendEmbed(embedqu);
 	} else if (command === `pause`) {
