@@ -13,7 +13,7 @@ const prefix = "#"
 
 
 client.on('message', message => {
-if(message.content === adminprefix + "restart") {
+if(message.content === prefix + "restart") {
       if (!devs.includes(message.author.id)) return;
 		message.channel.send(`⚠️ **Restarting the bot..**`);
         console.log(`⚠️ جاري اعادة تشغيل البوت... ⚠️`);
