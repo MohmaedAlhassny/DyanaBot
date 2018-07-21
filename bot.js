@@ -10,6 +10,7 @@ const client = new Discord.Client();
 
 
 const prefix = "#"
+const child_process = require("child_process");
 
 
 client.on('message', message => {
