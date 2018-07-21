@@ -32,7 +32,8 @@ if(message.content === prefix + "restart") {
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!..`);
-    client.user.setStatus("idle")
+    client.user.setStatus("idle");
+    client.user.setGame('#play, #invite');
 });
 
 
