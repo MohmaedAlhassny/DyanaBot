@@ -145,7 +145,7 @@ ${serverQueue.songs.map(song => `**${++index} -** ${song.title}`).join('\n')}
 			serverQueue.connection.dispatcher.resume();
 			return msg.channel.send('**:notes: Song has been resumed :fire: ..**');
 		}
-		return msg.channel.send(''**Now Playing:** `Nothing..`'*');
+		return msg.channel.send('**Now Playing:** `Nothing..`*');
 	}
 
 	return undefined;
