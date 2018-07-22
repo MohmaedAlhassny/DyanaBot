@@ -233,7 +233,7 @@ function play(guild, song) {
 		.on('error', error => console.error(error));//by ,$ ReBeL ء , 🔕#4777 'CODES SERVER'
 	dispatcher.setVolumeLogarithmic(serverQueue.volume / 100);//by ,$ ReBeL ء , 🔕#4777 'CODES SERVER'
 
-	serverQueue.textChannel.send('**Now Playing: **`' + `${song.title}` + '`');
+	serverQueue.textChannel.send('**Now Playing: **`' + `${song.title}` + '` Like Count: `' + `${song.likeCount}` + '`');
 }
 
 
@@ -255,14 +255,6 @@ return message.reply("**لا يمكنك تغيير الاسم يجب عليك ا
 client.user.setAvatar(argresult);
   message.channel.sendMessage(`**${argresult}** : تم تغير صورة البوت`);
       } else
-  if (message.content.startsWith(prefix + 'setListening')) {
-  client.user.setActivity(`${argresult} | ${client.guilds.size}s.`, {type: LISTENING});
-    message.channel.sendMessage('**Successfully changed the Listening of the bot to: **`' + `${argresult}` + '`')
-      } else	
-  if (message.content.startsWith(prefix + 'setWatching')) {
-  client.user.setActivity(`${argresult} | ${client.guilds.size}s.`, {type: WATCHING});
-    message.channel.sendMessage('**Successfully changed the watching of the bot to: **`' + `${argresult}` + '`')
-      } else	      
 if (message.content.startsWith(prefix + 'setStreaming')) {
   client.user.setActivity(`${argresult} | ${client.guilds.size}s.`, 'https://twitch.tv/hi');
     message.channel.sendMessage(`**تم تغيير تويتش البوت إلى  ${argresult}**`)
