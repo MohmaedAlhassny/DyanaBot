@@ -133,10 +133,10 @@ ${videos.map(video2 => `[**${++index} **] \`${video2.title}\``).join('\n')}`)
 	} else if (command === `vol`) {
 		if (!msg.member.voiceChannel) return msg.channel.send('أنت لست بروم صوتي .');
 		if (!serverQueue) return msg.channel.send('لا يوجد شيء شغآل.');
-		if (!args[1]) return msg.channel.send(`:loud_sound: مستوى الصوت **${serverQueue.volume}/100**`);
+		if (!args[1]) return msg.channel.send(':notes: `' + `${serverQueue.volume}/100` + '` **مستوى الصوت آلحالي**');
 		serverQueue.volume = args[1];//by ,$ ReBeL ء , 🔕#4777 'CODES SERVER'
 		serverQueue.connection.dispatcher.setVolumeLogarithmic(args[1] / 100);
-		return msg.channel.send('`' + `${args[1]}` + '`** الى **`' + `${serverQueue.volume}/100` + '`** تم تغيير مستوى الصوت من**');
+		return msg.channel.send('`' + `${args[1]}/100` + '` **تم تغيير مستوى الصوت ألى**');
 	} else if (command === `np`) {
 		if (!serverQueue) return msg.channel.send('لا يوجد شيء حالي ف العمل.');
 		const embedNP = new Discord.RichEmbed()
