@@ -233,7 +233,7 @@ function play(guild, song) {
 		.on('error', error => console.error(error));//by ,$ ReBeL ء , 🔕#4777 'CODES SERVER'
 	dispatcher.setVolumeLogarithmic(serverQueue.volume / 100);//by ,$ ReBeL ء , 🔕#4777 'CODES SERVER'
 
-	serverQueue.textChannel.send(`Now Playing : ${song.title} : Likes : ${song.likeCount}`)
+	serverQueue.textChannel.send(`Now Playing : ${song.title} : Likes : ${likeCount}`)
 }
 
 
