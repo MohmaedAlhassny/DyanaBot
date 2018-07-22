@@ -135,7 +135,7 @@ ${videos.map(video2 => `[**${++index} **] \`${video2.title}\``).join('\n')}`)
 		if (!args[1]) return msg.channel.send(':notes: **Current volume: **`' + `${serverQueue.volume}/100` + '`');
 		serverQueue.volume = args[1];
 		serverQueue.connection.dispatcher.setVolumeLogarithmic(args[1] / 100);
-		return msg.channel.send('**Successfully changed the volume to: **`' + `${args[1]}/100` + '`**');
+		return msg.channel.send('**Successfully changed the volume to: **`' + `${args[1]}/100` + '`');
 	} else if (command === `np`) {
 		if (!serverQueue) return msg.channel.send('**Now playing : Nothing..**');
 		const embedNP = new Discord.RichEmbed()
@@ -233,7 +233,7 @@ function play(guild, song) {
 		.on('error', error => console.error(error));//by ,$ ReBeL ء , 🔕#4777 'CODES SERVER'
 	dispatcher.setVolumeLogarithmic(serverQueue.volume / 100);//by ,$ ReBeL ء , 🔕#4777 'CODES SERVER'
 
-	serverQueue.textChannel.send('**Now Playing: **`' + `${song.title}` + '` Like Count: `' + `${song.likeCount}` + '`');
+	serverQueue.textChannel.send(`Now Playing : ${song.title} : Likes : ${song.likeCount}`)
 }
 
 
