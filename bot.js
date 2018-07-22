@@ -94,7 +94,7 @@ client.on('message', async msg => { // eslint-disable-line
 					const embed1 = new Discord.RichEmbed()
 			        .setDescription(`**Choose the number of the song** :
 ${videos.map(video2 => `[**${++index} **] \`${video2.title}\``).join('\n')}`)
-					.setFooter("Just type the number of the song.")
+					.setFooter("Just type the number of the song in the chat.")
 					msg.channel.sendEmbed(embed1).then(message =>{message.delete(20000)})
 					
 					// eslint-disable-next-line max-depth
@@ -106,13 +106,13 @@ ${videos.map(video2 => `[**${++index} **] \`${video2.title}\``).join('\n')}`)
 						});//by ,$ ReBeL ء , 🔕#4777 'CODES SERVER'
 					} catch (err) {
 						console.error(err);
-						return msg.channel.send('لم يتم إختيآر مقطع صوتي');
+						return;
 					}
 					const videoIndex = parseInt(response.first().content);
 					var video = await youtube.getVideoByID(videos[videoIndex - 1].id);
 				} catch (err) {
 					console.error(err);
-					return msg.channel.send(':X: لا يتوفر نتآئج بحث ');
+					return msg.channel.send(':sob: **No result..**');
 				}
 			}//by ,$ ReBeL ء , 🔕#4777 'CODES SERVER'
 
@@ -120,52 +120,53 @@ ${videos.map(video2 => `[**${++index} **] \`${video2.title}\``).join('\n')}`)
 		}//by ,$ ReBeL ء , 🔕#4777 'CODES SERVER'
 	} else if (command === `skip`) {
 		if (!msg.member.voiceChannel) return msg.channel.send('**You must be in a voiceChannel.**');
-		if (!serverQueue) return msg.channel.send('لا يتوفر مقطع لتجآوزه');
-		serverQueue.connection.dispatcher.end('تم تجآوز هذآ المقطع');
+		if (!serverQueue) return msg.channel.send('**:expressionless: What are you doing?, there is no video to skip!**');
+		serverQueue.connection.dispatcher.end('**:ok: Skipped !**');
 		return undefined;
 	} else if (command === `stop`) {//by ,$ ReBeL ء , 🔕#4777 'CODES SERVER'
 		if (!msg.member.voiceChannel) return msg.channel.send('**You must be in a voiceChannel.**');
-		if (!serverQueue) return msg.channel.send('لا يتوفر مقطع لإيقآفه');
+		if (!serverQueue) return msg.channel.send('**:expressionless: What are you doing?, there is no video to stop!**');
 		serverQueue.songs = [];
-		serverQueue.connection.dispatcher.end('تم إيقآف هذآ المقطع');
+		serverQueue.connection.dispatcher.end('Stopped.');
 		return undefined;
 	} else if (command === `vol`) {
 		if (!msg.member.voiceChannel) return msg.channel.send('**You must be in a voiceChannel.**');
-		if (!serverQueue) return msg.channel.send('لا يوجد شيء شغآل.');
-		if (!args[1]) return msg.channel.send(':notes: `' + `${serverQueue.volume}/100` + '` **مستوى الصوت آلحالي**');
-		serverQueue.volume = args[1];//by ,$ ReBeL ء , 🔕#4777 'CODES SERVER'
+		if (!serverQueue) return;
+		if (!args[1]) return msg.channel.send(':notes: **Current volume: **`' + `${serverQueue.volume}/100` + '`');
+		serverQueue.volume = args[1];
 		serverQueue.connection.dispatcher.setVolumeLogarithmic(args[1] / 100);
-		return msg.channel.send('`' + `${args[1]}/100` + '` **تم تغيير مستوى الصوت ألى**');
+		return msg.channel.send('**Successfully changed the volume to: **`' + `${args[1]}/100` + '`**');
 	} else if (command === `np`) {
-		if (!serverQueue) return msg.channel.send('لا يوجد شيء حالي ف العمل.');
+		if (!serverQueue) return msg.channel.send('**Now playing : Nothing..**');
 		const embedNP = new Discord.RichEmbed()
-	.setDescription(`:notes: الان يتم تشغيل : **${serverQueue.songs[0].title}**`)
+	.setDescription(`:notes: Now Playing : **${serverQueue.songs[0].title}**`)
+	.setColor('GREEN')
 		return msg.channel.sendEmbed(embedNP);
 	} else if (command === `queue`) {
 		//by ,$ ReBeL ء , 🔕#4777 'CODES SERVER'
-		if (!serverQueue) return msg.channel.send('لا يوجد شيء حالي ف العمل.');
+		if (!serverQueue) return msg.channel.send('**Now Playing: Nothingg..**');
 		let index = 0;
 		//by ,$ ReBeL ء , 🔕#4777 'CODES SERVER'
 		const embedqu = new Discord.RichEmbed()
 //by ,$ ReBeL ء , 🔕#4777 'CODES SERVER'
-.setDescription(`**Songs Queue**
+.setDescription(`**DyanaQueue**
 ${serverQueue.songs.map(song => `**${++index}\\ -** ${song.title}`).join('\n')}
-**الان يتم تشغيل** ${serverQueue.songs[0].title}`)
+**Now Playing: ** ${serverQueue.songs[0].title}`)
 		return msg.channel.sendEmbed(embedqu);
 	} else if (command === `pause`) {
 		if (serverQueue && serverQueue.playing) {
 			serverQueue.playing = false;
 			serverQueue.connection.dispatcher.pause();
-			return msg.channel.send('تم إيقاف الموسيقى مؤقتا!');
+			return msg.channel.send('**Song has been __Paused__.**');
 		}//by ,$ ReBeL ء , 🔕#4777 'CODES SERVER'
-		return msg.channel.send('لا يوجد شيء حالي ف العمل.');
+		return msg.channel.send('**Now Playing: Nothing.**');
 	} else if (command === "resume") {
 		if (serverQueue && !serverQueue.playing) {
 			serverQueue.playing = true;
 			serverQueue.connection.dispatcher.resume();
-			return msg.channel.send('استأنفت الموسيقى بالنسبة لك !');
+			return msg.channel.send('**Song has been __Resumed__.**');
 		}//by ,$ ReBeL ء , 🔕#4777 'CODES SERVER'
-		return msg.channel.send('لا يوجد شيء حالي في العمل.');
+		return msg.channel.send('**Now Playing: Nothing.**');
 	}
 
 	return undefined;
@@ -187,7 +188,7 @@ async function handleVideo(video, msg, voiceChannel, playlist = false) {
 			voiceChannel: voiceChannel,
 			connection: null,
 			songs: [],
-			volume: 5,
+			volume: 30,
 			playing: true
 		};//by ,$ ReBeL ء , 🔕#4777 'CODES SERVER'
 		queue.set(msg.guild.id, queueConstruct);
@@ -201,13 +202,13 @@ async function handleVideo(video, msg, voiceChannel, playlist = false) {
 		} catch (error) {
 			console.error(`I could not join the voice channel: ${error}`);
 			queue.delete(msg.guild.id);
-			return msg.channel.send(`لا أستطيع دخول هذآ الروم ${error}`);
+			return msg.channel.send(`**I could not join the voice channel: ${error}.**`);
 		}
 	} else {//by ,$ ReBeL ء , 🔕#4777 'CODES SERVER'
 		serverQueue.songs.push(song);
 		console.log(serverQueue.songs);
 		if (playlist) return undefined;
-		else return msg.channel.send(` **${song.title}** تم اضافه الاغنية الي القائمة!`);
+		else return msg.channel.send('`' + `${song.title}` + '` Added to **DyanaQueue.**');
 	}
 	return undefined;
 }//by ,$ ReBeL ء , 🔕#4777 'CODES SERVER'
@@ -232,7 +233,7 @@ function play(guild, song) {
 		.on('error', error => console.error(error));//by ,$ ReBeL ء , 🔕#4777 'CODES SERVER'
 	dispatcher.setVolumeLogarithmic(serverQueue.volume / 100);//by ,$ ReBeL ء , 🔕#4777 'CODES SERVER'
 
-	serverQueue.textChannel.send(`بدء تشغيل : **${song.title}**`);
+	serverQueue.textChannel.send('**Now Playing: **`' + `${song.title}` + '`');
 }
 
 
@@ -241,9 +242,9 @@ client.on('message', message => {
   var argresult = message.content.split(` `).slice(1).join(' ');
     if (!devs.includes(message.author.id)) return;
     
-if (message.content.startsWith(prefix + 'setGame')) {
-  client.user.setGame(`#help , #invite | ` + argresult);
-    message.channel.sendMessage(`**${argresult} تم تغيير بلاينق البوت إلى **`)
+if (message.content.startsWith(prefix + 'setPlaying')) {
+  client.user.setGame(`${argresult} | ${client.guilds.size}s.`);
+    message.channel.sendMessage('**Successfully changed playing of the bot to: **`' + `${argresult}` + '`')
 } else 
   if (message.content.startsWith(prefix + 'setName')) {
 client.user.setUsername(argresult).then
@@ -253,19 +254,23 @@ return message.reply("**لا يمكنك تغيير الاسم يجب عليك ا
   if (message.content.startsWith(prefix + 'setAvatar')) {
 client.user.setAvatar(argresult);
   message.channel.sendMessage(`**${argresult}** : تم تغير صورة البوت`);
-      } else     
+      } else
+  if (message.content.startsWith(prefix + 'setListening')) {
+  client.user.setActivity(`${argresult} | ${client.guilds.size}s.`, {type: LISTENING});
+    message.channel.sendMessage('**Successfully changed the Listening of the bot to: **`' + `${argresult}` + '`')
+      } else	
+  if (message.content.startsWith(prefix + 'setWatching')) {
+  client.user.setActivity(`${argresult} | ${client.guilds.size}s.`, {type: WATCHING});
+    message.channel.sendMessage('**Successfully changed the watching of the bot to: **`' + `${argresult}` + '`')
+      } else	      
 if (message.content.startsWith(prefix + 'setStreaming')) {
-  client.user.setGame(`#help , #invite | ` + argresult, "https://www.twitch.tv/idk");
+  client.user.setActivity(`${argresult} | ${client.guilds.size}s.`, 'https://twitch.tv/hi');
     message.channel.sendMessage(`**تم تغيير تويتش البوت إلى  ${argresult}**`)
-}
+} 
 
 });
 
-client.on("message", message => {
- if (message.content === `${prefix}help`) {
-  const embed = new Discord.RichEmbed() 
-      .setColor('RANDOM')
-      .setDescription(`
+var vvh = `** DyanaBot Commands ,
 ${prefix}play ⇏
 ${prefix}skip ⇏ 
 ${prefix}pause ⇏
@@ -273,9 +278,11 @@ ${prefix}resume ⇏
 ${prefix}vol ⇏  
 ${prefix}stop ⇏ 
 ${prefix}np ⇏ 
-${prefix}queue ⇏
- `)
-   message.channel.sendEmbed(embed)
+${prefix}queue ⇏**`;
+
+client.on("message", message => {
+ if (message.content === `${prefix}help`) {
+   message.channel.sendMessage(vvh);
     
    }
    }); 
