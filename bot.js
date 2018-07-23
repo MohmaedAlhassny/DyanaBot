@@ -7,27 +7,7 @@ const YouTube = require('simple-youtube-api');
 const youtube = new YouTube("AIzaSyAdORXg7UZUo7sePv97JyoDqtQVi3Ll0b8");
 const queue = new Map();
 const client = new Discord.Client();
-
-
 const prefix = "#"
-const child_process = require("child_process");
-
-
-client.on('message', message => {
-if(message.content === prefix + "restart") {
-      if (!devs.includes(message.author.id)) return;
-		message.channel.send(`⚠️ **Restarting the bot..**`);
-        console.log(`⚠️ جاري اعادة تشغيل البوت... ⚠️`);
-        client.destroy();
-        child_process.fork(__dirname + "/bot.js");
-        console.log(`تم اعادة تشغيل البوت`);
-    }
-
-  });
-
-
-
-
 
 
 client.on('ready', () => {
@@ -36,13 +16,6 @@ client.on('ready', () => {
 });
 
 
-
-
-client.on('message', message => {
-  if(message.content === prefix + 'invite') {
-    message.author.send(`**Link :link: ** **https://discordapp.com/oauth2/authorize?client_id=${client.user.id}&permissions=8&scope=bot**`);
-  }
-});
 
 
 client.on('message', async msg => { // eslint-disable-line
@@ -91,11 +64,9 @@ client.on('message', async msg => { // eslint-disable-line
 				try {//by ,$ ReBeL ء , 🔕#4777 'CODES SERVER'
 					var videos = await youtube.searchVideos(searchString, 5);
 					let index = 0;
-					const embed1 = new Discord.RichEmbed()
-			        .setDescription(`**Choose the number of the song** :
-${videos.map(video2 => `[**${++index} **] \`${video2.title}\``).join('\n')}`)
-					.setFooter("Just type the number of the song in the chat.")
-					msg.channel.sendEmbed(embed1).then(message =>{message.delete(20000)})
+					var vvm = `**Choose the number of the song** :
+${videos.map(video2 => `[**${++index} **] \`${video2.title}\``).join('\n')}`;
+					msg.channel.sendMessage(vvm).then(message =>{message.delete(60000)})
 					
 					// eslint-disable-next-line max-depth
 					try {
@@ -233,7 +204,7 @@ function play(guild, song) {
 		.on('error', error => console.error(error));//by ,$ ReBeL ء , 🔕#4777 'CODES SERVER'
 	dispatcher.setVolumeLogarithmic(serverQueue.volume / 100);//by ,$ ReBeL ء , 🔕#4777 'CODES SERVER'
 
-	serverQueue.textChannel.send(`Now Playing : ${song.title} : Likes : ${likeCount}`)
+	serverQueue.textChannel.send('**Now Playing : **`' + `${song.title}` + '`')
 }
 
 
@@ -244,7 +215,7 @@ client.on('message', message => {
     
 if (message.content.startsWith(prefix + 'setPlaying')) {
   client.user.setGame(`${argresult} | ${client.guilds.size}s.`);
-    message.channel.sendMessage('**Successfully changed playing of the bot to: **`' + `${argresult}` + '`')
+    message.channel.sendMessage('**Successfully changed `Playing` of the bot to: **`' + `${argresult}` + '`');
 } else 
   if (message.content.startsWith(prefix + 'setName')) {
 client.user.setUsername(argresult).then
@@ -255,6 +226,14 @@ return message.reply("**لا يمكنك تغيير الاسم يجب عليك ا
 client.user.setAvatar(argresult);
   message.channel.sendMessage(`**${argresult}** : تم تغير صورة البوت`);
       } else
+  if (message.content.startsWith(prefix + 'setListening')) {
+client.user.setAcitivty(argresult, {type: 'LISTENING'});
+  message.channel.sendMessage('**Successfully changed `Listening` of the bot to: **`' + `${argresult}` + '`');
+      } else
+  if (message.content.startsWith(prefix + 'setWatching')) {
+client.user.setAcitivty(argresult, {type: 'WATCHING'});
+  message.channel.sendMessage('**Successfully changed `WATCHING` of the bot to: **`' + `${argresult}` + '`');
+      } else	      
 if (message.content.startsWith(prefix + 'setStreaming')) {
   client.user.setActivity(`${argresult} | ${client.guilds.size}s.`, 'https://twitch.tv/hi');
     message.channel.sendMessage(`**تم تغيير تويتش البوت إلى  ${argresult}**`)
