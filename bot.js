@@ -159,7 +159,7 @@ async function handleVideo(video, msg, voiceChannel, playlist = false) {
 			voiceChannel: voiceChannel,
 			connection: null,
 			songs: [],
-			volume: 30,
+			volume: 50,
 			playing: true
 		};//by ,$ ReBeL ء , 🔕#4777 'CODES SERVER'
 		queue.set(msg.guild.id, queueConstruct);
