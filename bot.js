@@ -227,11 +227,11 @@ client.user.setAvatar(argresult);
   message.channel.sendMessage(`**${argresult}** : تم تغير صورة البوت`);
       } else
   if (message.content.startsWith(prefix + 'setListening')) {
-client.user.setAcitivty(argresult, {type: 'LISTENING'});
+client.user.setActivity(argresult, {type: 'LISTENING'});
   message.channel.sendMessage('**Successfully changed `Listening` of the bot to: **`' + `${argresult}` + '`');
       } else
   if (message.content.startsWith(prefix + 'setWatching')) {
-client.user.setAcitivty(argresult, {type: 'WATCHING'});
+client.user.setActivity(argresult, {type: 'WATCHING'});
   message.channel.sendMessage('**Successfully changed `WATCHING` of the bot to: **`' + `${argresult}` + '`');
       } else	      
 if (message.content.startsWith(prefix + 'setStreaming')) {
